@@ -1,0 +1,9 @@
+#ignored directories
+.idea/
+tracked/
+resources/public/less.js-master/
+
+#ignored files
+*.txt
+/docker-compose.yml
+/Dockerfile

@@ -1,0 +1,16 @@
+{
+  "name": "wollhaar",
+  "description": "WolleTimetracker",
+  "keywords": ["timetracker", "selfmade"],
+  "license": "The Unlicense",
+  "authors": [
+    {
+      "name": "Wollhaar",
+      "email": "david_goraj@yahoo.de"
+    }
+  ],
+  "version": "0.2",
+  "require": {
+    "php": ">=5.0"
+  },
+}
