@@ -7,3 +7,12 @@ resources/public/less.js-master/
 *.txt
 /docker-compose.yml
 /Dockerfile
+
+
+#ignored extensions
+TCPDF/
+
+
+
+#negetiate ignored files
+!CHANGELOG.txt

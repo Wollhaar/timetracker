@@ -1,0 +1,10 @@
+0.3
+    - Added CHANGELOG to project
+    - Added tcpdf-Converter to Project
+    - Added Classes in Bundles(DocumentCreator, TrackerEngine) to Project
+    - Added an Userprofile to Project for automatic implementation of User to PDF
+    - Changed ProjectStructure for an more clearly coding
+
+next:
+    - Adding timestamps to Document
+    - Build HTML-Structure for PDF-Documents

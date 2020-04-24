@@ -1,15 +1,16 @@
 <?php
 
-$pwd = str_replace('\\', '/', getcwd());
+define('PWD', str_replace('\\', '/', getcwd()));
+define('PUBLIC','/resources/public/');
+define('PRIVATE','/resources/private/');
+
 //$pwd_view = '/timetracker/';
-$public = '/resources/public/';
-$private = '/resources/private/';
 
 
+include_once PWD . 'config.php';
 
 
-include_once $pwd . '/TrackerEngine/track.php';
 
 if (empty($_GET)) {
-    include_once $pwd . '/resources/private/tracking_view.php';
+    include_once PWD . '/resources/private/tracking_view.php';
 }

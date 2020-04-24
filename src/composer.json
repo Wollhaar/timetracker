@@ -5,12 +5,12 @@
   "license": "The Unlicense",
   "authors": [
     {
-      "name": "Wollhaar",
+      "name": "David Goraj",
       "email": "david_goraj@yahoo.de"
     }
   ],
-  "version": "0.2",
+  "version": "0.3",
   "require": {
-    "php": ">=5.0"
-  },
+    "php": ">=7.*"
+  }
 }
