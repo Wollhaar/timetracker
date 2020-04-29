@@ -35,7 +35,9 @@ class Time
 
     public function saveTime($path = null, $document_stamp = null)
     {
-        $document = new Document($this->timestamp . ',' . $this->type, 'txt', 'user');
+        $docID = strstr(strstr($document_stamp, '_'), '.', TRUE);
+        $document = new Document($docID, $this->timestamp . ',' . $this->type, 'txt', 'user');
+
         if (empty($path)) {
             $path = PWD . DIRECTORY_SEPARATOR .
                 'tracked' . DIRECTORY_SEPARATOR .
@@ -43,11 +45,11 @@ class Time
                 date('m_M', $this->getTime());
         }
         if (empty($this->document_stamp)) {
-            $document_stamp = 'track_' . $this->timestamp;
-            $this->document_stamp = $document->createDocument(null, $document_stamp);
+            $document_stamp = $this->timestamp . '_' . $document->getId();
+            $this->document_stamp = $document->createDocument($path, $document_stamp);
         }
         else {
-            $document->overrideDocument($path, $this->document_stamp);
+            $document->overrideDocument($path, $this->document_stamp, $this->timestamp . ',' . $this->type);
         }
         return $document_stamp;
     }

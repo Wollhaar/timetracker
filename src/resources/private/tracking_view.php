@@ -3,9 +3,9 @@
 <head>
     <title>Timetracking</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link type="text/css" rel="stylesheet/less" href="<?php echo $pwd_view . $public ?>css/main.less" />
-<script type="text/javascript" src="<?php echo $pwd_view . $public ?>less.js-master/dist/less.min.js"></script>
-<script type="text/javascript" src="<?php echo $pwd_view . $public ?>js/main.js"></script>
+    <link type="text/css" rel="stylesheet/less" href="<?php echo PWD . PUBLIC_PATH ?>css/main.less" />
+<script type="text/javascript" src="<?php echo PWD . PUBLIC_PATH ?>less.js-master/dist/less.min.js"></script>
+<script type="text/javascript" src="<?php echo PWD . PUBLIC_PATH ?>js/main.js"></script>
 </head>
 <body>
 <div class="header"><h2>Your own Timetracker</h2></div>

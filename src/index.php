@@ -1,16 +1,12 @@
 <?php
 
-define('PWD', str_replace('\\', '/', getcwd()));
-define('PUBLIC','/resources/public/');
-define('PRIVATE','/resources/private/');
-
-//$pwd_view = '/timetracker/';
+$pwd = str_replace('\\', '/', getcwd());
 
 
-include_once PWD . 'config.php';
+include_once $pwd . '/config.php';
 
 
 
 if (empty($_GET)) {
-    include_once PWD . '/resources/private/tracking_view.php';
+    include_once PWD . PRIVATE_PATH . 'tracking_view.php';
 }

@@ -5,7 +5,7 @@
  * Date: 14.03.2019
  * Time: 16:40
  */
-
+use TrackerEngine\Model\Classes\Time as Time;
 
 if(empty($_GET)) {
     $start_time = time();

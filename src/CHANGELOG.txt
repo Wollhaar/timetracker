@@ -5,6 +5,14 @@
     - Added an Userprofile to Project for automatic implementation of User to PDF
     - Changed ProjectStructure for an more clearly coding
 
-next:
+0.3.1:
     - Adding timestamps to Document
+    - fixed document_stamps and timestamps for documents
+    - Modified config for better and global constants
+    - Added update for documentdata
+    - Added userprofile to implement Users data
+
+
+next:
+    - Build function to create PDF-Documents
     - Build HTML-Structure for PDF-Documents
