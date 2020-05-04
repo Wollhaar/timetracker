@@ -3,6 +3,7 @@
 define('PWD', str_replace('\\', '/', getcwd()));
 define('PUBLIC_PATH','/resources/public/');
 define('PRIVATE_PATH','/resources/private/');
+include_once 'userprofile.php';
 
 
 // --- DocumentCreator ---
@@ -11,6 +12,7 @@ include_once PWD . '/DocumentCreator/Model/Classes/Document.php';
 include_once PWD . '/DocumentCreator/Model/Classes/PDF.php';
 
 // functionality
+include_once PWD . '/DocumentCreator/Controller/Document.php';
 
 
 // --- extensions ---
@@ -28,7 +30,6 @@ include_once PWD . '/TrackerEngine/track.php';
 
 
 
-include_once 'userprofile.php';
 
 
 

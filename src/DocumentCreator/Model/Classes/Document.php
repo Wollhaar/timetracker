@@ -11,7 +11,7 @@ class Document
     private $formatting;
     private $storage;
 
-    public function __construct($id = null, $data, $formatting, $storage)
+    public function __construct($id, $data, $formatting, $storage)
     {
         $this->formatting = $formatting;
         $this->storage = $storage;
@@ -21,21 +21,17 @@ class Document
             if (is_array($data)) {
                 $data = implode(',', $data);
             }
-            elseif (is_a($data, 'Time') && is_int($data->getTime())) {
-                $data = $data->getTime() . ',' . $data->getType();
+            elseif (is_a($data, 'Time') && is_int($data->getTimestamp())) {
+                $data = $data->getTimestamp() . ',' . $data->getType();
             }
             else {
                 return false;
             }
         }
-
-        if (is_null($id)) $this->id = uniqid();
-        else {
-            $this->id = $id;
-            $data = $this->getDataFromFile() . PHP_EOL . $data;
-        }
-
+        $data = $this->getDataFromFile() . PHP_EOL . $data;
         $this->data = $data;
+
+        $this->id = $id;
     }
 
 
@@ -73,7 +69,7 @@ class Document
                 date('Y') . DIRECTORY_SEPARATOR .
                 date('m_M') . DIRECTORY_SEPARATOR;
 
-            $filename = date('YmD') . '_' . $this->id . '.' . $this->formatting;
+            $filename = $this->id . '.' . $this->formatting;
         }
         else return null;
 
@@ -91,7 +87,6 @@ class Document
     public function overrideDocument($path, $doc_stamp, $newData)
     {
         if (strpos($doc_stamp, $this->id) == -1) return false;
-        $this->data = $newData;
 
         if ($this->checkPath($path)) {
             file_put_contents($path . $doc_stamp, $newData, FILE_APPEND);
@@ -115,6 +110,7 @@ class Document
 
         return $pathPpd;
     }
+
     /**
      * create missing directories
      * @param $path
@@ -123,10 +119,10 @@ class Document
     private function makeDIR($path)
     {
         $madeDIR = 0;
-        $doDIRs = PWD;
-        foreach (explode('/', $path) AS $dir) {
-            if (is_dir($doDIRs .= DIRECTORY_SEPARATOR . $dir)){echo 'test'; continue;}
-            if (mkdir($doDIRs, 0777)) $madeDIR++;
+        $doDIRs = DIRECTORY_SEPARATOR;
+        foreach (explode(DIRECTORY_SEPARATOR, PWD . $path) AS $dir) {
+            if (is_dir($doDIRs .= $dir . DIRECTORY_SEPARATOR)){echo 'test'; continue;}
+            if (mkdir($doDIRs, 0777, TRUE)) $madeDIR++;
         }
         return $madeDIR;
     }

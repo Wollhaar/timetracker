@@ -12,6 +12,11 @@
     - Added update for documentdata
     - Added userprofile to implement Users data
 
+0.3.2:
+    - Fixed directory structure
+    - Fixed file creator
+    - Added DocController file creator
+
 
 next:
     - Build function to create PDF-Documents

@@ -1,7 +1,7 @@
 let doBreak = 'begin';
 let windowObject;
 let strWindowFeatures = 'toolbar=1,scrollbars=1,location=1,statusbar=0,menubar=1,resizable=1,width=430,height=350';
-let url = 'http://localhost/timetracker/index.php';
+let url = 'http://localhost/index.php';
 
 openWindow();
 
@@ -25,20 +25,25 @@ function makeBreak(str) {
 
         }
     };
-    xmlhttp.open("GET", "track.php?q=" + str, true);
+    xmlhttp.open("GET", "index.php?q=" + str, true);
     xmlhttp.send();
 }
 
 function endWork() {
     var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("GET", "index.php?f=finish", true);
 
-    xmlhttp.open("GET", "track.php?f=finish", true);
     xmlhttp.send();
-
     window.close()
 }
 
 function openWindow(){
     windowObject = window.open(url, 'Timetracker', strWindowFeatures);
 
+}
+function testPDF() {
+    var xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.open("GET", "index.php?pdf=test", true);
+    xmlhttp.send();
 }
