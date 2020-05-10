@@ -1,51 +1,41 @@
-<?php
-
-if ($_GET['pdf']) {
-    $doc_control->buildPDF();
-}
-
-if ($_GET['f']) {
-    $close_page = true;
-}
-?>
 <!DOCTYPE html>
 <html>
 <head>
     <title>Timetracking</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link type="text/css" rel="stylesheet/less" href="<?php echo PUBLIC_PATH ?>css/main.less" />
-<script type="text/javascript" src="<?php echo PUBLIC_PATH ?>less.js-master/dist/less.min.js"></script>
-<script type="text/javascript" src="<?php echo PUBLIC_PATH ?>js/main.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.0.js"></script>
+    <script type="text/javascript" src="<?php echo PUBLIC_PATH ?>less.js-master/dist/less.min.js"></script>
+    <script type="text/javascript" src="<?php echo PUBLIC_PATH ?>js/main.js"></script>
 </head>
 <body>
 <div class="header"><h2>Your own Timetracker</h2></div>
 
-<form>
-    <input type="button" onclick="testPDF(doBreak)" id="pdf_button" value="PDF-Download" />
-</form>
-<div class="wrapper">
-    <div class="work-start">
-        <p><b>Start working:</b><br />
-        <span class="time-text">
-        <?php
-                echo date('d M Y H:i', strtotime('+2 hours', $start_time));
-                ?>
-        </span>
-        </p>
-    </div>
-    <div class="break">
-        <p><b>Take a break....</b></p>
-        <form>
-    <input type="button" onclick="makeBreak(doBreak)" id="break_button" value="Break" />
-</form>
-        <div id="break">
-            <p><i>Time:</i></p>
+<div class="container wrapper">
+    <div class="row">
+        <div class="col-9 work-start">
+            <label for="time-list"><b>Zeitleiste:</b></label>
+            <select id="time-list" class="form-control" name="time_list" size="5" multiple disabled>
+            </select>
+        </div>
+        <div class="col-3">
+            <label for="month-list"><b>Monate:</b></label>
+            <select id="month-list" class="form-control" name="time_list" size="5" multiple></select>
         </div>
     </div>
-    <div class="work-end">
-<form>
-    <input type="button" onclick="endWork()" id="finish_button" value="FINISH" />
-</form>
+    <div class="row">
+        <div class="col-3 start">
+            <input class="form-control" type="button" onclick="startWork()" id="start-button" value="Beginne" />
+        </div>
+        <div class="col-3 break">
+            <input class="form-control" type="button" onclick="makeBreak(doBreak)" id="break-button" value="Pause" disabled />
+        </div>
+        <div class="col-3 work-end">
+            <input class="form-control" type="button" onclick="endWork()" id="finish-button" value="Ende" disabled />
+        </div>
+        <div class="col-3 load-pdf">
+            <input class="form-control" type="button" onclick="download_PDF()" id="pdf-button" value="PDF" />
+        </div>
     </div>
 </div>
 <div class="footer"></div>

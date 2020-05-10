@@ -17,6 +17,12 @@
     - Fixed file creator
     - Added DocController file creator
 
+0.4.0:
+    - modified Frontend (Buttons and SelectList)
+    - fixed TimeCreation
+    - Added Controller for Time, to work on Tracked Times
+    - Added display-balance for worktime
+
 
 next:
     - Build function to create PDF-Documents

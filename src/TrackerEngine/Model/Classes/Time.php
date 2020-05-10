@@ -32,33 +32,44 @@ class Time
     }
 
     /**
+     * @return array
+     */
+    public function getSplittedTypes()
+    {
+        $types = explode(':', $this->type);
+        return array('work_break' => $types[0], 'start_end' => $types[1]);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDate()
+    {
+        return date('d M Y', $this->timestamp);
+    }
+
+    /**
      * @return mixed
      */
     public function getTime()
     {
-        return date('d M Y H:i', strtotime('+2 hours' . $this->timestamp));
+        return date('H:i:s', strtotime('+2 hours', $this->timestamp));
     }
 
 
 
-    public function saveTime($path = null, $document_stamp = null)
+    public function saveTime($document_stamp = null)
     {
         $this->document_stamp = $document_stamp;
         if (empty($this->document_stamp)) $this->document_stamp = $this->timestamp;
         $document = new Document($this->document_stamp, $this->timestamp . ',' . $this->type, 'txt', 'user');
 
-        if (empty($path)) {
-            $path = PWD . DIRECTORY_SEPARATOR .
-                'tracked' . DIRECTORY_SEPARATOR .
-                date('Y', $this->getTimestamp()) . DIRECTORY_SEPARATOR .
-                date('m_M', $this->getTimestamp());
-        }
         if ($this->type == 'work:start') {
-            $document->createDocument($path, $document_stamp);
+            $document->createDocument($this->document_stamp);
         }
         else {
-            $document->overrideDocument($path, $this->document_stamp, $this->timestamp . ',' . $this->type);
+            $document->overrideDocument($this->document_stamp, $this->timestamp . ',' . $this->type);
         }
-        return $document_stamp;
+        return $this->document_stamp;
     }
 }

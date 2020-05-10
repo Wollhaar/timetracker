@@ -5,45 +5,122 @@ let url = 'http://localhost/index.php';
 
 openWindow();
 
+$(document).ready(function () {
+  init();
+});
+
+function init() {
+  update_monthList();
+  update_timeBalance()
+}
+
+function startWork () {
+    $('#start-button').prop('disabled', true);
+    $('#break-button').prop('disabled', false);
+    $('#finish-button').prop('disabled', false);
+
+    $.post('/API/track.php', {
+        action: 'start',
+        type: 'work:start'
+    },
+      function (response) {
+        $('#time-list').append(response);
+        update_monthList();
+    });
+}
+
 function makeBreak(str) {
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
 
-            if(str == 'begin'){
-                document.getElementById("break").innerHTML = '<p>Start:' + this.responseText + '</p>';
+    $.post('/API/track.php', {
+        action: 'break',
+        type: 'break:' + str
+    },
+      function (response) {
 
-                doBreak = 'end';
-                document.getElementById("break_button").value = doBreak.toUpperCase();
-            }
-            if(str == 'end'){
-                document.getElementById("break").innerHTML += '<p>Ende:' + this.responseText + '</p>';
+          if(str == 'begin'){
+              var break_button = $("#break-button");
 
-                doBreak = 'begin';
-                document.getElementById("break_button").value = doBreak.toUpperCase();
-            }
+              $("#time-list").append(response);
+              doBreak = 'end';
 
-        }
-    };
-    xmlhttp.open("GET", "index.php?q=" + str, true);
-    xmlhttp.send();
+              break_button.val('Pause\nEnde');
+              break_button.css('white-space', 'normal');
+              break_button.css('line-height', '15px');
+              break_button.css('padding', '5px 10px');
+          }
+          if(str == 'end'){
+              $("#time-list").append(response);
+
+              doBreak = 'begin';
+              $("#break-button").val('Pause');
+          }
+      }
+    );
 }
 
 function endWork() {
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("GET", "index.php?f=finish", true);
+    $.post('/API/track.php', {
+          action: 'finish',
+          type: 'work:end'
+      },
+      function (response) {
+          $('#time-list').append(response);
 
-    xmlhttp.send();
-    window.close()
+          $('#start-button').prop('disabled', false);
+          $('#break-button').prop('disabled', true);
+          $('#finish-button').prop('disabled', true);
+      });
 }
+
+function download_PDF() {
+    var months = $('#month-list').val();
+    console.log(months);
+
+    $.post('/API/pdf.php', {
+      action: 'collectTracks',
+      months: months
+    }, function (response) {
+        if(response) {
+            $('pdf-button').val('Succeed')
+        }
+    });
+}
+
+
+function update_monthList() {
+  $.post('/API/update.php', {action: 'months'}, function (data) {
+    if (typeof data === 'string') {
+      $('#month-list').html(data);
+    }
+  });
+}
+
+function update_timeBalance() {
+  $.post('/API/update.php', {action: 'display_timeBalance'}, function (data) {
+    if (typeof data === 'string') {
+      $('label[for=time-list]').append(data);
+    }
+  });
+}
+
+function update_time_title() {
+  var current_time = $('.time-text').html();
+  var title_element = $('title');
+  var title = $(title_element).html();
+
+  console.log(current_time);
+  current_time = Date();
+  $(title_element).html(current_time + ' | ' + title);
+}
+
+
 
 function openWindow(){
     windowObject = window.open(url, 'Timetracker', strWindowFeatures);
 
 }
-function testPDF() {
-    var xmlhttp = new XMLHttpRequest();
 
-    xmlhttp.open("GET", "index.php?pdf=test", true);
-    xmlhttp.send();
+
+if ($('#month-list').html() == null) {
+    $('#pdf-button').prop('disabled', true);
 }

@@ -10,12 +10,12 @@ class PDF extends Document
 
     public function __construct($data, $formatting, $datearea, $storage)
     {
-        parent::__construct($data, $formatting, $storage);
+        parent::__construct('TrackingDocumentation_' . $datearea, $data, $formatting, $storage);
 
         $this->datearea = $datearea;
+        echo $this->path;
 
         $this->file = new tcpdf();
-        $this->createDocument();
     }
 
     public function preparePDFDoc()
@@ -23,7 +23,7 @@ class PDF extends Document
 
     }
 
-    public function createDocument($path = '')
+    public function createDocument($doc_stamp)
     {
         $this->file->Output(); // TODO
     }
@@ -42,7 +42,7 @@ class PDF extends Document
          */
 
 // Include the main TCPDF library (search for installation path).
-        require_once('tcpdf_include.php');
+//        require_once('tcpdf_include.php');
 
 // create new PDF document
         $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
