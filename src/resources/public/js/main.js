@@ -1,9 +1,8 @@
 let doBreak = 'begin';
-let windowObject;
-let strWindowFeatures = 'toolbar=1,scrollbars=1,location=1,statusbar=0,menubar=1,resizable=1,width=430,height=350';
-let url = 'http://localhost/index.php';
+let time = 0;
+let minutes = 0;
+let seconds = 0;
 
-openWindow();
 
 $(document).ready(function () {
   init();
@@ -43,16 +42,20 @@ function makeBreak(str) {
               $("#time-list").append(response);
               doBreak = 'end';
 
-              break_button.val('Pause\nEnde');
+              break_button.val('Pause Ende');
               break_button.css('white-space', 'normal');
               break_button.css('line-height', '15px');
               break_button.css('padding', '5px 10px');
+
+              start_clock();
           }
           if(str == 'end'){
               $("#time-list").append(response);
 
               doBreak = 'begin';
               $("#break-button").val('Pause');
+
+              stop_clock();
           }
       }
     );
@@ -98,28 +101,51 @@ function update_monthList() {
 function update_timeBalance() {
   $.post('/API/update.php', {action: 'display_timeBalance'}, function (data) {
     if (typeof data === 'string') {
-      $('label[for=time-list]').append(data);
+      var color;
+
+      if (data < 0) color = '#aa0011';
+      else color = '#00ee00';
+
+      data = parseFloat(data).toFixed(2)
+      $('label[for=time-list]').append('<i style="color: ' + color + '">' + data + '</i>');
     }
   });
 }
 
-function update_time_title() {
-  var current_time = $('.time-text').html();
+
+function update_time_title(time) {
   var title_element = $('title');
+
   var title = $(title_element).html();
-
-  console.log(current_time);
-  current_time = Date();
-  $(title_element).html(current_time + ' | ' + title);
-}
-
-
-
-function openWindow(){
-    windowObject = window.open(url, 'Timetracker', strWindowFeatures);
+  $(title_element).html(time);
 
 }
 
+function start_clock() {
+
+  setInterval(function(){
+    timer(++time)
+  }, 1000);
+}
+
+function stop_clock() {
+  clearInterval(timer());
+  time = 0;
+  $('#timer').hide();
+}
+
+function timer(time) {
+  seconds++;
+  if (time > 59) {
+    seconds = 0;
+    minutes++;
+    time = 0;
+  }
+
+  var display_time = minutes + ':' + seconds;
+  update_time_title(display_time);
+  $('#timer').html(display_time).show();
+}
 
 if ($('#month-list').html() == null) {
     $('#pdf-button').prop('disabled', true);

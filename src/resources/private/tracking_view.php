@@ -9,7 +9,11 @@
     <script type="text/javascript" src="<?php echo PUBLIC_PATH ?>js/main.js"></script>
 </head>
 <body>
-<div class="header"><h2>Your own Timetracker</h2></div>
+<div class="header">
+    <h2>Your own Timetracker
+    <span id="timer" style="display: none;text-align: right;"></span>
+    </h2>
+</div>
 
 <div class="container wrapper">
     <div class="row">

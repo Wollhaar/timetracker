@@ -78,7 +78,7 @@ class DocumentController
         if (is_string($files)) return $files;
 
         foreach ($files as $timestamp) {
-            $months[date('Y_m_M', $timestamp)] = date('M', $timestamp);
+            $months[date('Y_m_M', intval($timestamp))] = date('M', intval($timestamp));
         }
 
         return $months;
@@ -142,7 +142,6 @@ class DocumentController
 
                     // getting the right month
                     $orderIndexMonth = ltrim(strstr($month, '_'), '_');
-                    echo 'Month: ' . $orderIndexMonth;
                     if (is_array($trackedTime[$year][$orderIndexMonth])) {
 
                         // save the ordered month with the days
@@ -157,10 +156,41 @@ class DocumentController
         return $orderedTrackedTime;
     }
 
-
-    public function buildPDF()
+    public function buildTrackingPDF($data, $datearea)
     {
-        $pdf = new PDF('LOREM IPSUM DOLORES', 'pdf', '2020-02-01:2020-03-30', 'boss');
-        $pdf->testPDF();
+        $html = $this->build_trackingListHTML($data);
+        $datearea = implode('-', $datearea);
+
+        $this->buildPDF('Tracking_' . $datearea, $html, $datearea, 'boss');
+    }
+
+    public function buildPDF($filename, $html, $datearea, $storage)
+    {
+        $pdf = new PDF($filename, $html, $datearea, $storage);
+
+        $pdf->preparePDFDoc('table');
+        $pdf->createDocument('PDF_Track');
+    }
+
+    public function build_trackingListHTML($data)
+    {
+        if (is_array($data)) {
+            $list = '<h2>Tracking</h2><ul>';
+
+            foreach ($data as $year => $months) {
+                $list .= "<li>$year</li><li><ul>";
+                foreach ($months as $month => $days) {
+                    $list .= "<li>$month</li><li><ul>";
+                    foreach ($days as $day => $values) {
+                        $list .= "<li>$day: {$values['worktime']}</li>";
+                    }
+                    $list .= "</ul></li>";
+                }
+                $list .= "</ul></li>";
+            }
+            $list .= "</ul>";
+
+            return $list;
+        }
     }
 }

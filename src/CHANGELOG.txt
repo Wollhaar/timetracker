@@ -23,7 +23,12 @@
     - Added Controller for Time, to work on Tracked Times
     - Added display-balance for worktime
 
+0.4.1:
+    - Modified worktime_balance
+    - Built function to create PDF-Documents
+    - Built HTML-Structure for PDF-Documents
+    - Fixed timezone issue
+    - Fixed date() timestamp issue
 
 next:
-    - Build function to create PDF-Documents
-    - Build HTML-Structure for PDF-Documents
+    - set running breakTime

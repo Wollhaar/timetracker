@@ -20,12 +20,12 @@ class TimeController
 
     public function __construct()
     {
-        $this->workDays['2020'] = 230;
+        $this->workDays['2020'] = 21 * 12;
         $this->currentWeek = date('W');
         $dayInTheWeek = date('w');
         $this->currentDayOfYear = date('z');
 
-        $this->debit = (self::workWeekHours * ($this->currentWeek - 1)) + $dayInTheWeek;
+        $this->debit = (self::workWeekHours * ($this->currentWeek - 1)) + ($dayInTheWeek * 8);
         $workYearPercentage = $this->currentDayOfYear / $this->workDays[date('Y')];
         $this->workTimeBalance -= $this->debit * $workYearPercentage;
     }
@@ -42,9 +42,11 @@ class TimeController
         return $this->workTimeBalance;
     }
 
+    /**
+     * calculate the balance of the whole worktime
+     */
     public function calculate_workTimeBalance()
     {
-        //        TODO: Kallkulation von Plus-/Minusstunden
         $this->build_workTimeArray();
         foreach ($this->trackedTime as $months) {
             foreach ($months as $days) {
@@ -57,7 +59,8 @@ class TimeController
     }
 
 
-    /** calculate timeDifference
+    /**
+     * calculate difference between two timestamps in hours
      * @param $start
      * @param $end
      * @return float|int
@@ -77,10 +80,14 @@ class TimeController
     }
 
 
+    /**
+     * building a array with calculated worktime of each day
+     * @param null $trackedTime
+     */
     public function build_workTimeArray($trackedTime = null)
     {
         if (!empty($trackedTime))
-            $this->trackedTimeArray = $trackedTime;
+            $this->trackedTime = $trackedTime;
 
         foreach ($this->trackedTime as $year => $months) {
             foreach ($months as $month => $days) {
@@ -101,7 +108,11 @@ class TimeController
     }
 
 
-
+    /**
+     * calculate the worktime of a day
+     * @param $day
+     * @return float|int|string
+     */
     public function workDay_calculation($day)
     {
         foreach ($day as $type => $time) {
@@ -132,7 +143,11 @@ class TimeController
         }
     }
 
-
+    /**
+     * calculate the worktime of a day for an array
+     * @param $day
+     * @return int|mixed
+     */
     public function workDay_ArrayCalculation($day)
     {
         $worked = 0;

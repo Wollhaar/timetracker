@@ -21,7 +21,7 @@ switch ($action) {
         $time_control->permitTrackingTime($trackedTime);
         $plus_minus = $time_control->getWorkTimeBalance();
 
-        echo "<i>$plus_minus</i>";
+        echo $plus_minus;
         break;
 
     default:

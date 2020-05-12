@@ -53,7 +53,7 @@ class Time
      */
     public function getTime()
     {
-        return date('H:i:s', strtotime('+2 hours', $this->timestamp));
+        return date('H:i:s', $this->timestamp);
     }
 
 
@@ -65,7 +65,7 @@ class Time
         $document = new Document($this->document_stamp, $this->timestamp . ',' . $this->type, 'txt', 'user');
 
         if ($this->type == 'work:start') {
-            $document->createDocument($this->document_stamp);
+            $document->createDocument();
         }
         else {
             $document->overrideDocument($this->document_stamp, $this->timestamp . ',' . $this->type);

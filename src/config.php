@@ -7,6 +7,8 @@ define('PUBLIC_PATH','/resources/public/');
 define('PRIVATE_PATH','/resources/private/');
 include_once 'userprofile.php';
 
+date_default_timezone_set('Europe/Berlin');
+
 
 
 // --- TrackerEngine ---
@@ -37,7 +39,7 @@ include_once PWD . '/TCPDF/TCPDF-master/tcpdf.php';
 // checking if timestamp for date is valid
 function valid_date($timestamp)
 {
-    $date = date('Y-m-d', $timestamp);
+    $date = date('Y-m-d', intval($timestamp));
     if ($date == '1970-01-01') return false;
 
     return true;

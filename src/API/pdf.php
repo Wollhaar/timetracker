@@ -16,13 +16,16 @@ switch ($action) {
 
         foreach ($post_months as $data) {
             $data = explode('_', $data);
-            $months = array_merge_recursive($months, array('Y_' . $data[0] => array('M_' . $data[1] . '_' . $data[2] => '')));
+            $months = array_merge_recursive($months, array('Y_' . $data[0] =>
+                array('M_' . $data[1] . '_' . $data[2] => '')
+            ));
         }
         $trackedTime = $doc_control->getTrackedTime();
         $orderedTime = $doc_control->filterTracks($months);
 
         $time_control = new TimeController();
         $time_control->build_worktimeArray($orderedTime);
+        $doc_control->buildTrackingPDF($time_control->trackedTime, $post_months);
         break;
 
     default:

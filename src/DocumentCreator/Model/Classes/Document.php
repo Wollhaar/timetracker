@@ -32,7 +32,7 @@ class Document
 
         $this->path = $this->buildPath();
 
-        $data = $this->getDataFromFile() . PHP_EOL . $data;
+        if ($formatting == 'txt') $data = $this->getDataFromFile() . PHP_EOL . $data;
         $this->data = $data;
     }
 
@@ -56,18 +56,15 @@ class Document
 
     /**
      * create and fill Document
-     * @param $filename
-     * @return string
+     * @param string $doc_stamp
      */
-    public function createDocument($doc_stamp)
+    public function createDocument($doc_stamp = '')
     {
         if($this->checkPath()) {
+            if (empty($doc_stamp)) $doc_stamp = $this->id;
             $file = $this->path . $doc_stamp . '.' . $this->formatting;
             file_put_contents($file, $this->data . PHP_EOL);
         }
-        else $doc_stamp = false;
-
-        return $doc_stamp;
     }
 
     /**
@@ -91,8 +88,6 @@ class Document
      */
     public function overrideDocument($doc_stamp, $newData)
     {
-        if (strpos($doc_stamp, $this->id) == -1) return false;
-
         if ($this->checkPath()) {
             file_put_contents($this->path . $doc_stamp . '.' .$this->formatting, $newData . PHP_EOL, FILE_APPEND);
         }
@@ -106,7 +101,6 @@ class Document
                 $path =  PWD . DIRECTORY_SEPARATOR . 'tracked' . DIRECTORY_SEPARATOR .
                 date('Y', $this->id) . DIRECTORY_SEPARATOR .
                 date('m_M', $this->id) . DIRECTORY_SEPARATOR;
-
                 break;
 
             case 'boss':
