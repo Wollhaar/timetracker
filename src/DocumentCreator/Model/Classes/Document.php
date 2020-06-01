@@ -119,7 +119,7 @@ class Document
      * check for existing path
      * @return bool|int
      */
-    private function checkPath()
+    public function checkPath()
     {
         $pathPpd = is_dir($this->path);
         if(!$pathPpd)$pathPpd = $this->makeDIR();

@@ -168,27 +168,42 @@ class DocumentController
     {
         $pdf = new PDF($filename, $html, $datearea, $storage);
 
-        $pdf->preparePDFDoc('table');
-        $pdf->createDocument('PDF_Track');
+        $pdf->testPDF();
+//        $pdf->preparePDFDoc('table');
+//        $pdf->createDocument('PDF_Track');
     }
 
     public function build_trackingListHTML($data)
     {
         if (is_array($data)) {
-            $list = '<h2>Tracking</h2><ul>';
+            $list = <<<EOD
+                <h2>Tracking</h2><ul>
+EOD;
 
             foreach ($data as $year => $months) {
-                $list .= "<li>$year</li><li><ul>";
+                $list .= <<<EOD
+                    <li>$year</li><li><ul>
+EOD;
                 foreach ($months as $month => $days) {
-                    $list .= "<li>$month</li><li><ul>";
+                    $list .= <<<EOD
+                        <li>$month</li><li><ul>
+EOD;
                     foreach ($days as $day => $values) {
-                        $list .= "<li>$day: {$values['worktime']}</li>";
+                        $list .= <<<EOD
+                            <li>$day: {$values['worktime']}</li>
+EOD;
                     }
-                    $list .= "</ul></li>";
+                    $list .= <<<EOD
+                        </ul></li>
+EOD;
                 }
-                $list .= "</ul></li>";
+                $list .= <<<EOD
+                    </ul></li>
+EOD;
             }
-            $list .= "</ul>";
+            $list .= <<<EOD
+                </ul>
+EOD;
 
             return $list;
         }
