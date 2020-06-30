@@ -1,16 +1,22 @@
 #ignored directories
 .idea/
 tracked/
+vendor/
 resources/public/less.js-master/
 
 #ignored files
 *.txt
-/docker-compose.yml
-/Dockerfile
+docker-compose.yml
+Dockerfile
+composer.lock
+composer.phar
 
 
 #ignored extensions
+tcpdf/
 TCPDF/
+tc-lib-pdf/
+composer/
 
 
 

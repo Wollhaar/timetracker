@@ -169,7 +169,7 @@ class DocumentController
         $pdf = new PDF($filename, $html, $datearea, $storage);
 
         $pdf->preparePDFDoc('table');
-        $pdf->createDocument('PDF_Track');
+        $pdf->createDocument();
     }
 
     public function build_trackingListHTML($data)

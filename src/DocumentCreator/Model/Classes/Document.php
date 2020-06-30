@@ -119,7 +119,7 @@ class Document
      * check for existing path
      * @return bool|int
      */
-    private function checkPath()
+    public function checkPath()
     {
         $pathPpd = is_dir($this->path);
         if(!$pathPpd)$pathPpd = $this->makeDIR();
@@ -134,7 +134,7 @@ class Document
     private function makeDIR()
     {
         $madeDIR = 0;
-        $doDIRs = DIRECTORY_SEPARATOR;
+        $doDIRs = '';
         foreach (explode(DIRECTORY_SEPARATOR, $this->path) AS $dir) {
             if (is_dir($doDIRs .= $dir . DIRECTORY_SEPARATOR)) continue;
             if (mkdir($doDIRs, 0777, TRUE)) $madeDIR++;

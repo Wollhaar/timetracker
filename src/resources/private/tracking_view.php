@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link type="text/css" rel="stylesheet/less" href="<?php echo PUBLIC_PATH ?>css/main.less" />
     <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.0.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.11.1/less.min.js" ></script>
     <script type="text/javascript" src="<?php echo PUBLIC_PATH ?>less.js-master/dist/less.min.js"></script>
     <script type="text/javascript" src="<?php echo PUBLIC_PATH ?>js/main.js"></script>
 </head>

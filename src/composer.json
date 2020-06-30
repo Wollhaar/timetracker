@@ -11,6 +11,13 @@
   ],
   "version": "0.4.1",
   "require": {
-    "php": ">=7.*"
-  }
+    "php": ">=7.1",
+    "tecnickcom/tcpdf": "dev-master"
+  },
+  "repositories": [
+      {
+      "type": "vcs",
+      "url": "git@github.com:tecnickcom/tc-lib-pdf.git"
+    }
+  ]
 }

@@ -46,16 +46,12 @@ function makeBreak(str) {
               break_button.css('white-space', 'normal');
               break_button.css('line-height', '15px');
               break_button.css('padding', '5px 10px');
-
-              start_clock();
           }
           if(str == 'end'){
               $("#time-list").append(response);
 
               doBreak = 'begin';
               $("#break-button").val('Pause');
-
-              stop_clock();
           }
       }
     );
@@ -77,13 +73,17 @@ function endWork() {
 
 function download_PDF() {
     var months = $('#month-list').val();
-    console.log(months);
+
+    $(months).submit()
 
     $.post('/API/pdf.php', {
       action: 'collectTracks',
       months: months
-    }, function (response) {
+    },
+        function (response) {
+
         if(response) {
+            window.open(response);
             $('pdf-button').val('Succeed')
         }
     });

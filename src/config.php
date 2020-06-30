@@ -1,6 +1,6 @@
 <?php
-//error_reporting(E_ALL);
-//ini_set('display_errors', true);
+error_reporting(0);
+ini_set('display_errors', false);
 
 define('PWD', __DIR__);
 define('PUBLIC_PATH','/resources/public/');
@@ -9,6 +9,8 @@ include_once 'userprofile.php';
 
 date_default_timezone_set('Europe/Berlin');
 
+// --- extensions ---
+include_once PWD . '/vendor/autoload.php';
 
 
 // --- TrackerEngine ---
@@ -28,8 +30,6 @@ include_once PWD . '/DocumentCreator/Model/Classes/PDF.php';
 include_once PWD . '/DocumentCreator/Controller/Document.php';
 
 
-// --- extensions ---
-include_once PWD . '/TCPDF/TCPDF-master/tcpdf.php';
 
 
 

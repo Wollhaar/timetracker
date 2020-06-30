@@ -3,14 +3,15 @@
 
 namespace DocumentCreator\Model\Classes;
 
-use \TCPDF as tcpdf;
+use TCPDF;
+
 class PDF extends Document
 {
     private $datearea;
 
     public function __construct($name, $data, $datearea, $storage)
     {
-        parent::__construct($name . $datearea, $data, 'pdf', $storage);
+        parent::__construct($name, $data, 'pdf', $storage);
 
         $this->datearea = $datearea;
 
@@ -22,7 +23,6 @@ class PDF extends Document
         if ($mode == 'table') {
             $this->file->SetCreator(PDF_CREATOR);
             $this->file->SetTitle($this->getId());
-            $this->file->SetSubject('BeispielUntertitel');
 
             // Header und Footer Informationen
             $this->file->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
@@ -45,20 +45,14 @@ class PDF extends Document
 
             // Fügt den HTML Code in das PDF Dokument ein
             $this->file->writeHTML($this->getData(), true, false, true, false, '');
-
-            // set content-type
-            header("Content-Type: application/pdf");
-
-            // It will be called downloaded.pdf
-            header("Content-Disposition:attachment;filename='downloaded.pdf'");
-
-            // The PDF source is in original.pdf
-            readfile($this->getId() . ".pdf");
         }
     }
 
     public function createDocument($doc_stamp = '')
     {
-        echo $this->file->Output($this->getId(), 'S'); // TODO
+        if ($this->checkPath()) {
+            $this->file->Output($this->path . $this->getId() . '.pdf', 'F'); // TODO
+            echo $this->path . $this->getId() . '.pdf';
+        }
     }
 }

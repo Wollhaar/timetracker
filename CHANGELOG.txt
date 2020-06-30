@@ -30,5 +30,11 @@
     - Fixed timezone issue
     - Fixed date() timestamp issue
 
+0.4.2:
+    - Added .gitmodules to project to get updates for submodules
+    - Added tcpdf as submodule to project
+    - Modified DocumentController to getting work tcpdf on another local system
+    - Modified PDF Class to getting work tcpdf on another local system
+    - Moved CHANGELOG, gitignore and gitmodules to root, for directly overview on informational, nonfunctional files
 next:
     - set running breakTime
